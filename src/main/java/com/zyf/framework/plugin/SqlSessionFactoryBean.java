@@ -464,6 +464,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
 
 			// ThinkGem 启动刷新MapperXML定时器（有助于开发者调试）。
 			if (mapperRefresh.isEnabled() || !"".equals(mapperRefresh.getFilename())) {
+				System.out.println("mapperRefresh loading.............");
 				mapperRefresh.init();
 				mapperRefresh.setConfiguration(configuration);
 				mapperRefresh.setMapperLocations(mapperLocations);

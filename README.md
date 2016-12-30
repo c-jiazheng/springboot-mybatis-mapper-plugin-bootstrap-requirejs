@@ -8,34 +8,59 @@ Springboot 测验DEMO
 ###### 后端支持：
 
 主体支持： **JDK1.8**、**Springboot1.4.2**
+
 页面支持：**JSP/thymeleaf**、**jstl**
+
 ORM支持: **mybatis3.2.8**
+
 ORM插件支持: **mapper3.3**、**PageHelp4.1** 分页
+
 权限支持：**shiro1.2.5**
+
 访问接口支持: **swagger2**
+
 JSON支持:**fastjson**
+
 连接池支持：**druid**
+
 mapper xml生成支持：**mybatis-generator-core 1.3.5**
+
 时间操作支持：**joda-time**
+
 缓存支持：**ehcache** 、**guava**
+
 参数验证支持：**jsr303**
+
 web容器支持：**内嵌tomcat**
+
 maven支持：**maven3.3.9**
+
 maven仓库支持：**阿里云**
+
 热部署支持：**springloaded**
+
 日志支持：**log4j**
+
 消息队列支持：**rabbitmq**
 
 ###### 前端支持：
 
 模块化支持：**requireJS**
+
 主体支持：**jQuery3.1**
+
 风格支持：**bootstrap**
+
 模板支持：**artTemplate**
+
 表格支持：**datatables**
+
 图标支持：**font-awesome**
+
 弹窗支持：**layer**
+
 websocket支持：**sockjs**
+
 树结构支持：**ztree**
 
 ### 支持情况

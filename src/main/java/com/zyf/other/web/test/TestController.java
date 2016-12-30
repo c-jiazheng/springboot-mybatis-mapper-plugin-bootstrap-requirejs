@@ -98,7 +98,7 @@ public class TestController {
 		return content;
 	}
 
-	@ApiOperation(value = "测试JSR303验证参数", notes = "通过直接访问的方式")
+	@ApiOperation(value = "测试JSR303验证参数", notes = "通过直接访问/test/valid")
 	@ApiResponse(code = 200, message = "错误列表")
 	@RequestMapping(value = "/valid", method = RequestMethod.GET)
 	@ResponseBody

@@ -17,14 +17,14 @@ public class TestWebSocketController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@ApiOperation(value = "后台通知前台",protocols = "ws",notes = "发送消息给所有websocket用户")
+	@ApiOperation(value = "后台通知前台",protocols = "ws",notes = "/websocket/server/send, 发送消息haha给所有websocket用户")
 	@RequestMapping(value = "/server/send", method = RequestMethod.GET)
 	@ResponseBody
 	public void send() {
 		WebSocketUtils.sendMessageToAllUsers("haha");
 	}
 
-	@ApiOperation(value = "客户端访问",protocols = "ws",notes = "直接访问，通过SockJS连接")
+	@ApiOperation(value = "客户端访问",protocols = "ws",notes = "直接访问/websocket/server/accept，通过SockJS连接")
 	@RequestMapping(value = "/server/accept", method = RequestMethod.GET)
 	public String accept() {
 		return "websocket/test";

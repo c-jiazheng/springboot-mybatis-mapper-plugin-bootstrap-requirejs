@@ -97,29 +97,6 @@ public class LoginController {
 	@RequestMapping(value = "/onceLoginIn", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String onceLoginIn(HttpServletRequest request) {
-		Map<String, Object> map = new HashMap<>();
-		String url = "/index";
-		map.put("msg", "loginIn fail");
-		map.put("result", false);
-		UsernamePasswordToken upt = new UsernamePasswordToken("a", "a");
-		Subject subject = SecurityUtils.getSubject();
-		try {
-			subject.login(upt);
-			map.put("msg", "loginIn success");
-			map.put("result", true);
-			SavedRequest savedRequest = null;
-			if((savedRequest = WebUtils.getAndClearSavedRequest(request)) != null){
-				url = savedRequest.getRequestUrl().replaceFirst(request.getContextPath(), "");
-				map.put("redirect", url);
-			}
-		} catch (IncorrectCredentialsException e) {
-			map.put("msg", "input account or password fail, try again");
-		} catch (AuthenticationException e) {
-			e.printStackTrace();
-			map.put("msg", "input account or password fail, try again");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return JSONObject.toJSONString(map);
+		return loginIn("admin", "admin", request);
 	}
 }

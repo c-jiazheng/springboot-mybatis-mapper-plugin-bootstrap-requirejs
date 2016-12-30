@@ -38,16 +38,16 @@ public class ThreadExcuteUitls {
 				e.printStackTrace();
 			}
 			//JDK1.8 Lambda
-			/*executorService.execute(()->{
+			executorService.execute(()->{
 				System.out.println(Thread.currentThread().getName() + " = " + index);
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			});*/
+			});
 			//JDK1.7
-			executorService.execute(new Runnable() {
+			/*executorService.execute(new Runnable() {
 				@Override
 				public void run() {
 					System.out.println(Thread.currentThread().getName() + " = " + index);
@@ -57,7 +57,7 @@ public class ThreadExcuteUitls {
 						e.printStackTrace();
 					}
 				}
-			});
+			});*/
 		}
 	}
 

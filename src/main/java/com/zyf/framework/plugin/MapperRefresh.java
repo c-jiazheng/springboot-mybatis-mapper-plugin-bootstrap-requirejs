@@ -118,7 +118,7 @@ public class MapperRefresh implements Runnable {
 			// 启动刷新线程
 			final MapperRefresh runnable = this;
 			//JDK1.7
-			new Thread(new Runnable() {
+			/*new Thread(new Runnable() {
 				@Override
 				public void run() {
 					if (location == null) {
@@ -160,9 +160,9 @@ public class MapperRefresh implements Runnable {
 
 					}
 				}
-			}, "MyBatis-Mapper-Refresh").start();
+			}, "MyBatis-Mapper-Refresh").start();*/
 			//JDK1.8
-			/*new Thread(() -> {
+			new Thread(() -> {
 
 				if (location == null) {
 					location = new HashSet<>();
@@ -202,7 +202,7 @@ public class MapperRefresh implements Runnable {
 					}
 
 				}
-			}, "MyBatis-Mapper-Refresh").start();*/
+			}, "MyBatis-Mapper-Refresh").start();
 		}
 	}
 

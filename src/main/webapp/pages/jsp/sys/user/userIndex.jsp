@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head lang="en">
 	<meta charset="UTF-8"/>
-	<title>index jsp</title>
+	<title>user index jsp</title>
 	<jsp:include page="/pages/jsp/commons/style.jsp"></jsp:include>
 </head>
 <body>
@@ -18,7 +18,7 @@
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
-		<%-- sreach--%>
+		<%--sreach--%>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-bar-chart-o fa-fw"></i> 条件查询
@@ -39,7 +39,7 @@
 			</div>
 			<!-- /.panel-body -->
 		</div>
-		<%-- add --%>
+		<%--add--%>
 		<div id="jq_add_form" class="panel panel-default" style="display: none">
 			<div class="panel-heading">新增账号</div>
 			<div class="panel-body">
@@ -72,6 +72,18 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-sm-12" style="margin-bottom: 15px">
+						<div class="col-sm-offset-6">
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="jq_roles_select" class="col-sm-4">角色：</label>
+							<div class="col-sm-8">
+								<select id="jq_roles_select" name="roleId" class="form-control input-sm" style="width: 185px;" >
+									<option value="">请选择</option>
+								</select>
+							</div>
+						</div>
+					</div>
 					<center>
 						<button id="jq_submit" type="submit" class="btn btn-primary">提交</button>
 						<button id="jq_close" type="button" class="btn btn-primary">关闭</button>
@@ -79,27 +91,28 @@
 				</form>
 			</div>
 		</div>
-		<%-- content--%>
+		<%--content--%>
 		<button id="jq_add" type="button" class="btn btn-primary clearfix" style="margin-bottom: 10px;;">新增</button>
-		<div class="table-responsive">
-			<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+		<div id="div-table-container" class="table-responsive">
+			<table width="100%" class="table table-striped table-bordered table-hover" id="table-user" cellspacing="0">
 				<thead>
-					<tr>
-						<th>序号</th>
-						<th>账号</th>
-						<th>真实姓名</th>
-						<th>创建日期</th>
-						<th>操作</th>
-					</tr>
+				<tr>
+					<th>账号</th>
+					<th>真实姓名</th>
+					<th>角色</th>
+					<th>创建日期</th>
+				</tr>
 				</thead>
 				<tbody>
-					<tr class="odd gradeX">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="center"></td>
-					</tr>
 				</tbody>
+				<tfoot>
+				<tr>
+					<th>账号</th>
+					<th>真实姓名</th>
+					<th>角色</th>
+					<th>创建日期</th>
+				</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>

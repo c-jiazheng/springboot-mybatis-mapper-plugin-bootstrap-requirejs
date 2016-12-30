@@ -3,6 +3,7 @@ package com.zyf.common.entity.sys;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Created by zengyufei on 2016/11/27/027.
@@ -18,7 +19,7 @@ public class Role implements Serializable{
 	private String roleName;
 	private String description;
 	private String resourceId;
-	private String createTime;
+	private Calendar createTime;
 
 	public long getId() {
 		return id;
@@ -52,11 +53,11 @@ public class Role implements Serializable{
 		this.resourceId = resourceId;
 	}
 
-	public String getCreateTime() {
+	public Calendar getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Calendar createTime) {
 		this.createTime = createTime;
 	}
 }

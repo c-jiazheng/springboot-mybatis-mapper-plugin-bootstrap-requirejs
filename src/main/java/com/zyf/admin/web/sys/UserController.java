@@ -1,6 +1,9 @@
 package com.zyf.admin.web.sys;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zyf.common.entity.sys.User;
 import com.zyf.common.service.sys.UserService;
 import io.swagger.annotations.*;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
@@ -34,16 +38,20 @@ public class UserController {
 	})
 	@RequestMapping(value = "queryList", method = RequestMethod.GET)
 	@ResponseBody
-	public String queryList() {
+	public String queryList(@RequestParam(required = false, name = "pn", defaultValue = "0") int pn,
+	                        @RequestParam(required = false, name = "ps", defaultValue = "10") int ps) {
 		logger.info("查询用户信息");
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "queryList fail");
 		map.put("result", false);
+		PageHelper.startPage(pn, ps);
 		List<User> userList = userService.queryList();
+		PageInfo<User> pages = new PageInfo<>(userList);
 		if (userList != null && !userList.isEmpty()) {
 			map.put("result", true);
 			map.put("msg", "queryList success");
-			map.put("dataList", userList);
+			map.put("pages", pages);
+			map.put("draw", 1);
 		}
 		return JSONObject.toJSONString(map);
 	}
@@ -78,7 +86,7 @@ public class UserController {
 	})
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
-	public String add(@Valid User user) {
+	public String add(User user) {
 		logger.info("user:[{}]", user);
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "add user fail");

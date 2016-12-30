@@ -9,8 +9,13 @@ import java.util.Set;
 
 public interface RoleService {
 
-	public Role query(long id);
+	int insert(Role role);
 
-	public List<Role> queryList(RoleOption roleOption);
+	int update(Role role);
 
+	Role query(long id);
+
+	List<Role> queryList(RoleOption roleOption);
+
+	int updateRoleResource(Role role);
 }

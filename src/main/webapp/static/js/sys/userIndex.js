@@ -1,4 +1,22 @@
-define(["utils/DateUtils"], function (DateUtils) {
+requirejs(["initBindMethod", "initStyle"]);
+
+define("initStyle", ["utils/art"], function (art) {
+	$(function () {
+		$.get("/role/queryList", function (data) {
+			var json = JSON.parse(data);
+			var roleList = json.dataList;
+			var options = ['<option value="">请选择角色</option>'];
+			$.each(roleList, function (i, v) {
+				options.push('<option value="' + v.id + '">' + v.roleName + '</option>');
+			});
+			$("#jq_roles_select").html(options);
+		});
+	})
+});
+
+define("initBindMethod", ["utils/DateUtils", "utils/FormUtils", "utils/TableUtils"], function (DateUtils, FormUtils) {
+
+	var datatables = loadTable();
 
 	$("#jq_add").on("click", function () {
 		$(this).hide();
@@ -12,15 +30,23 @@ define(["utils/DateUtils"], function (DateUtils) {
 
 	$("#jq_submit").on("click", function () {
 		layer.load(1, {shade: 0.6});
-		var formInput = $("#add_form").serialize();
-		$.post("/user/add", formInput, function (data) {
+		var formToJson = FormUtils.formToJson("#add_form");
+		for (var val in formToJson) {
+			if (formToJson[val] == "") {
+				layer.alert("所有的数据录入不能为空");
+				layer.closeAll('loading');
+				return false;
+			}
+		}
+		$.post("/user/add", formToJson, function (data) {
 			var json = JSON.parse(data);
-			if(json.result){
+			if (json.result) {
 				layer.alert(json.msg);
 				$("#jq_add").show();
 				$("#jq_add_form").hide();
 				$("#jq_submit:input").val("");
-			}else{
+				datatables.reload();
+			} else {
 				layer.alert(json.msg);
 			}
 			layer.closeAll('loading');
@@ -28,46 +54,79 @@ define(["utils/DateUtils"], function (DateUtils) {
 	});
 
 
-	$(document).ready(function() {
-		$.get("/user/queryList", function(data){
-			var json = JSON.parse(data);
-			$('#dataTables-example').DataTable({
-				"dom": "<'row'<'col-sm-12'tr>>" +
-				"<'row'<'col-sm-10'l><'col-sm-2'i><'col-sm-12'p>>",
-				"data": json.dataList,
-				"columns": [
-					{ "data": "id" },
-					{ "data": "account" },
-					{ "data": "name" },
-					{ "data": "createTime" }
-				],
-				"responsive": true,
-				"bPaginate": true, //翻页功能
-				"bLengthChange": true, //改变每页显示数据数量
-				"bFilter": false, //过滤功能
-				"bSort": true, //排序功能
-				"bInfo": true,//页脚信息
-				"bAutoWidth": true,//自动宽度
-				"bProcessing": false,          //当datatable获取数据时候是否显示正在处理提示信息。
-				"oLanguage": {
-					"sProcessing": "正在加载中......",
-					"sLengthMenu": "每页显示 _MENU_ 条记录",
-					"sZeroRecords": "对不起，查询不到相关数据！",
-					"sEmptyTable": "表中无数据存在！",
-					"sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
-					"sInfoFiltered": "数据表中共为 _MAX_ 条记录",
-					"sSearch": "搜索",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上一页",
-						"sNext": "下一页",
-						"sLast": "末页"
-					}
+	function loadTable(){
+		var test = {
+			"el": "#table-user",//需要套用表格的元素
+			"isCheck": false,//首列是否需要复选框，默认复选框在前
+			"checkCallback": {
+				checkAll: function (jqDoms) {
 				},
-				"rowCallback": function( row, data, index ) {
-					$('td:eq(3)', row).html(DateUtils.getTimeYMD(data.createTime));
+				checkSingle: function (jqDom) {
 				}
-			});
-		});
-	});
+			},
+			"isNumb": true,//是否需要序号
+			"isOperate": true,
+			"isShade": true,//发送请求是否需要遮罩
+			"dataName": ["pages", "list"],
+			"ajax": {
+				"type": "GET",
+				"url": "/user/queryList",
+				"cache": false,
+				"dataType": "json",
+				//"sort": "",//排序字段
+				"data": {
+					id: 1,
+					name: "zengyufei"
+				},//发送服务器参数
+				"success": function (data) {
+					//封装返回数据，这里仅演示了修改属性名
+					var returnData = {};
+					returnData.recordsTotal = data.pages.total;//总记录数
+					returnData.recordsFiltered = data.pages.total;//后台不实现过滤功能，每次查询均视作全部结果
+					returnData.data = data.pages.list;//集合
+					return returnData;
+				}
+			},
+			"column": [
+				{
+					"name": "account",
+					"type": "string"
+				},{
+					"name": "name",
+					"type": "string"
+				},{
+					"name": "roleId",
+					"type": "string"
+				},{
+					"name": "createTime",
+					"type": "date"
+				}
+			],
+			"buttons": [
+				{
+					"style": '<button type="button" class="btn btn-small btn-primary btn-edit">修改</button>',
+					"btnCallback": function (jqDom, datatables, table) {
+						//点击编辑按钮
+						var item = datatables.row($(jqDom).closest('tr')).data();
+						console.log(item)
+					}
+				}, {
+					"style": '<button type="button" class="btn btn-small btn-danger btn-del">删除</button>',
+					"btnCallback": function (jqDom, datatables, table) {
+						var item = datatables.row($(jqDom).closest('tr')).data();
+						console.log(item);
+					}
+				}
+			],
+			rowClick: function (row, event) {
+				//console.log(row);
+			}
+		};
+		return $("#table-user").table({}).load(test);
+	}
+
+	function reloadTable(datatables) {
+		datatables.reload();
+	}
+
 });

@@ -33,7 +33,7 @@
 						<div class="fomr-group col-sm-6">
 							<label for="jq_name" class="col-sm-4">角色描述：</label>
 							<div class="col-sm-8">
-								<input id="jq_name" name="name" type="text" class="form-control input-sm"/>
+								<input id="jq_name" name="description" type="text" class="form-control input-sm"/>
 							</div>
 						</div>
 					</div>
@@ -56,6 +56,9 @@
 			<div class="panel-heading">角色：<b><span id="jq_curRoleName"></span></b></div>
 			<hr/>
 			<form id="jq_resource_manager" action="" role="form" class="panel-group" ></form>
+			<div>
+				<button id="jq_submit_role_resource" type="button" class="btn btn-primary clearfix">提交</button>
+			</div>
 		</div>
 	</div>
 </div>

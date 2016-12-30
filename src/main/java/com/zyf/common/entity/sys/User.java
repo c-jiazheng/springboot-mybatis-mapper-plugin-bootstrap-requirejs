@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String name;
 	@ApiModelProperty(value = "用户角色", required = true, dataType = "Long", example = "管理员角色")
 	private long roleId;
-	@ApiModelProperty(value = "创建日期", required = true, dataType = "Date", example = "2016-08-08")
+	@ApiModelProperty(value = "创建日期", required = false, dataType = "Date", example = "2016-08-08")
 	private Calendar createTime;
 	
 	public long getId() {

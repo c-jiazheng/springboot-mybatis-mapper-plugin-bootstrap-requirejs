@@ -68,5 +68,7 @@ CREATE TABLE `t_user` (
 -- Records of t_user
 -- ----------------------------
 INSERT INTO `t_user` VALUES ('1', 'admin', 'f6fdffe48c908deb0f4c3bd36c032e72', '1', 'Admin', '2016-06-01 23:35:17');
+INSERT INTO `t_user` VALUES ('2', 'admin1', 'f6fdffe48c908deb0f4c3bd36c032e72', '1', 'Admin1', '2016-06-01 23:35:17');
+INSERT INTO `t_user` VALUES ('3', 'admin2', 'f6fdffe48c908deb0f4c3bd36c032e72', '1', 'Admin2', '2016-06-01 23:35:17');
 
 

@@ -30,6 +30,11 @@ public class ResourceServiceImpl implements ResourceService {
 	private ResourceMapper resourceMapper;
 
 	@Override
+	public int insert(Resource resource) {
+		return resourceMapper.insert(resource);
+	}
+
+	@Override
 	public Resource queryById(long id) {
 		Resource resource = resourceMapper.selectByPrimaryKey(id);
 		return resource;

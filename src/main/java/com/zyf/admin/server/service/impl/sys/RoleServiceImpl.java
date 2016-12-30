@@ -23,6 +23,25 @@ public class RoleServiceImpl implements RoleService {
 	private RoleMapper roleMapper;
 
 	@Override
+	public int insert(Role role) {
+		role.setCreateTime(Calendar.getInstance());
+		return roleMapper.insert(role);
+	}
+
+	@Override
+	public int update(Role role) {
+		return roleMapper.updateByPrimaryKeySelective(role);
+	}
+
+	@Override
+	public int updateRoleResource(Role role) {
+		Example example = new Example(Role.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("id", role.getId());
+		return roleMapper.updateByExampleSelective(role, example);
+	}
+
+	@Override
 	public Role query(long id) {
 		return roleMapper.selectByPrimaryKey(id);
 	}

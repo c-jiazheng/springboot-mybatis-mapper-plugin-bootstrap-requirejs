@@ -15,4 +15,6 @@ public class Sender {
 		this.rabbitTemplate.convertAndSend("hello", context);
 		return "Sender "+ flag + " : " + context;
 	}
+
+
 }

@@ -1,4 +1,5 @@
 define(["emmet"], function (emmet) {
+	//var emmet = require("emmet");
 	return {
 		buildForm: function(obj){
 			var wrapper = obj.wrapper;
@@ -19,12 +20,12 @@ define(["emmet"], function (emmet) {
 					//渲染
 					render(wrapperDom, formDom, this);
 					//绑定按钮方法
-					var keys = Object.keys(form.buttons);
-					for(var j in keys){
+					var buttons = form.buttons;
+					for(var j in buttons){
 						(function(i){
-							var key = keys[i];
-							$(form.buttons[key].el).on(form.buttons[key].event, function () {
-								form.buttons[key].func(wrapperDom, formDom, this);
+							var button = buttons[i];
+							$(button.el).on(button.event, function () {
+								button.func(wrapperDom, formDom, this);
 							});
 						})(j)
 					}

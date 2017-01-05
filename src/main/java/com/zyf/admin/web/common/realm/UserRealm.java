@@ -40,12 +40,8 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String username = (String) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.setStringPermissions(resourceService.queryPermissionByAccount(username));
 		//add Permission Resources
-		//userService.findPermissions(username)
-		//info.setStringPermissions(Arrays.asList("1,2,3,4,5,6,7,8,9".split(",")).parallelStream().collect(Collectors.toSet()));
-		//add Roles String[Set<String> roles]
-		//info.setRoles(roles);
+		info.setStringPermissions(resourceService.queryPermissionByAccount(username));
 		return info;
 	}
 

@@ -23,6 +23,40 @@ define(function () {
 //////////////////////////////////////////////////////////////////////////////////
 			/*常量*/
 			var CONSTANT = {
+				CUSTOM: {
+					DEFAULT_OPTION: {
+						"isCheck": false,//首列是否需要复选框，默认复选框在前
+						"checkCallback": {
+							checkAll: function (jqDoms) {
+							},
+							checkSingle: function (jqDom) {
+							}
+						},
+						"isNumb": true,//是否需要序号
+						"isOperate": false,
+						"isShade": true,//发送请求是否需要遮罩
+						"isTfoot": false,
+						"ajax": {
+							"type": "POST",
+							"cache": false,
+							"dataType": "json",
+							"data": {
+							},//发送服务器参数
+							"success": function (data) {
+								//封装返回数据，这里仅演示了修改属性名
+								var returnData = {};
+								returnData.recordsTotal = data.pages.total;//总记录数
+								returnData.recordsFiltered = data.pages.total;//后台不实现过滤功能，每次查询均视作全部结果
+								returnData.data = data.pages.list;//集合
+								return returnData;
+							}
+						},
+						"column": [],
+						"buttons": [],
+						rowClick: function (row, event) {
+						}
+					}
+				},
 				DATA_TABLES: {
 					DEFAULT_OPTION: { //DataTables初始化选项
 						language: {
@@ -91,41 +125,8 @@ define(function () {
 							return '<span title="' + data + '">' + fullYear + "-" + month + "-" + day + '</span>';
 						}
 					}
-				},
-				CUSTOM: {
-					DEFAULT_OPTION: {
-						"isCheck": false,//首列是否需要复选框，默认复选框在前
-						"checkCallback": {
-							checkAll: function (jqDoms) {
-							},
-							checkSingle: function (jqDom) {
-							}
-						},
-						"isNumb": true,//是否需要序号
-						"isOperate": false,
-						"isShade": true,//发送请求是否需要遮罩
-						"isTfoot": false,
-						"ajax": {
-							"type": "POST",
-							"cache": false,
-							"dataType": "json",
-							"data": {
-							},//发送服务器参数
-							"success": function (data) {
-								//封装返回数据，这里仅演示了修改属性名
-								var returnData = {};
-								returnData.recordsTotal = data.pages.total;//总记录数
-								returnData.recordsFiltered = data.pages.total;//后台不实现过滤功能，每次查询均视作全部结果
-								returnData.data = data.pages.list;//集合
-								return returnData;
-							}
-						},
-						"column": [],
-						"buttons": [],
-						rowClick: function (row, event) {
-						}
-					}
 				}
+
 			};
 			//////////////////////////////////////////////////////////////////////
 			return {
@@ -313,6 +314,9 @@ define(function () {
 					};
 				}
 			}
+		};
+		$.fn.table.reload = function (datatables){
+			datatables.ajax.reload();
 		};
 	})(jQuery)
 });

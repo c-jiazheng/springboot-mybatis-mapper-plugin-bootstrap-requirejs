@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zyf.common.entity.sys.User;
 import com.zyf.framework.exception.MyException;
 import com.zyf.framework.utils.EHCacheUtils;
+import com.zyf.framework.utils.MessageUtils;
 import com.zyf.framework.utils.PathUtils;
 import com.zyf.framework.utils.zip.ZipUtils;
 import com.zyf.other.rabbitmq.Sender;
@@ -24,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("test")
@@ -104,20 +106,10 @@ public class TestController {
 	@ResponseBody
 	public String valid(@Valid User user, BindingResult result) {
 		System.out.println(user.getAccount());
-		if(result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError error : list) {
-				System.out.println(error.getCode() + "---" + error.getArguments() + "---" + error.getDefaultMessage());
-			}
-		}
+		Map<String, Object> map = MessageUtils.toMap(result);
 		if("admin".equals(user.getAccount()))
 			result.rejectValue("account", "exists", "这个account已经存在了！");
-		//return JSONObject.toJSONString(result.getFieldErrors());
-		//return JSONObject.toJSONString(result.getFieldError("account"));
-		if(result.hasErrors())
-			return JSONObject.toJSONString(result.getAllErrors());
-		else
-			return JSONObject.toJSONString("not error");
+		return MessageUtils.parse(result);
 	}
 
 

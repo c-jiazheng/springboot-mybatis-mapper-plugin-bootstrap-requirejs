@@ -12,8 +12,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * 访问地址 /swagger-ui.html
  */
-@Configuration
-@EnableSwagger2
+//@Configuration
+//@EnableSwagger2
 public class SwaggerConfig {
 
 	public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.zyf";

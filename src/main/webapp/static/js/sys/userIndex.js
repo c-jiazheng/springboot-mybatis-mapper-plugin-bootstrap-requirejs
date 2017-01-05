@@ -113,7 +113,6 @@ define("initBindMethod", ["utils/TemplateUtils", "utils/FormUtils", "dataTables"
 });
 
 define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtils"], function (TemplateUtils, FormUtils) {
-	var datatables = loadTable();
 	function loadTable(){
 		var test = {
 			"el": "#table-user",//需要套用表格的元素
@@ -159,8 +158,8 @@ define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtil
 							},
 							form:{
 								el: "#add_form",
-								buttons: {
-									submit: {
+								buttons: [
+									{
 										el: "#jq_submit",
 										event: "click",
 										func: function(wrapper, form, btn){
@@ -179,7 +178,7 @@ define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtil
 													layer.alert(json.msg);
 													$("#jq_add").show();
 													wrapper.hide();
-													dataTables.reload();
+													tableUtils.reload(datatables);
 												} else {
 													layer.alert(json.msg);
 												}
@@ -187,7 +186,7 @@ define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtil
 											});
 										}
 									},
-									close: {
+									{
 										el: "#jq_close",
 										event: "click",
 										func: function(wrapper, form, btn){
@@ -195,7 +194,7 @@ define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtil
 											$("#jq_add").show();
 										}
 									}
-								},
+								],
 								items: [
 									{
 										el: "#input-1",
@@ -267,8 +266,6 @@ define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtil
 		};
 		return $("#table-user").table({}).load(test);
 	}
-	function reloadTable(datatables) {
-		datatables.reload();
-	}
-	return datatables;
+	var tableUtils = loadTable();
+	return tableUtils;
 });

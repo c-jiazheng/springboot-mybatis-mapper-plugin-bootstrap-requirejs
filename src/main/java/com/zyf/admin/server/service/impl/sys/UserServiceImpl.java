@@ -65,13 +65,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int update(User user) {
-		Example example = new Example(User.class);
-		Example.Criteria criteria = example.createCriteria();
 		if(StringUtils.isNotBlank(user.getPassword())){
 			String md5Password = MD5.encode(user.getAccount()+String.valueOf(user.getPassword()));
 			user.setPassword(md5Password);
 		}
-		return userMapper.updateByPrimaryKey(user);
+		return userMapper.updateByPrimaryKeySelective(user);
 	}
 
 }

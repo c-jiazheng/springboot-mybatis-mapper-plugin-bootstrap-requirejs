@@ -9,8 +9,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
-@EnableAsync    //开启异步处理
-@EnableScheduling   //开启定时任务
+//@EnableAsync    //开启异步处理
+//@EnableScheduling   //开启定时任务
 @EnableAutoConfiguration(exclude = MybatisAutoConfiguration.class)
 @ComponentScan
 @SpringBootApplication

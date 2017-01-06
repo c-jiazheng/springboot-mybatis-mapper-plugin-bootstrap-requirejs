@@ -141,5 +141,12 @@ https://github.com/zengyufei/springboot-mybatis-mapper-plugin-bootstrap-requirej
 ### 博客
 http://www.cnblogs.com/zengyufei/
 
+PS:
+关闭Swagger2(/api)能加速项目启动，打开关闭注解;路径 com.zyf.other.api.config.SwaggerConfig
+关闭Websocket能加速项目启动，打开关闭注解;路径 com.zyf.other.websocket.config.MessageWebSocketConfig
+关闭定时任务能加速项目启动，打开关闭注解;路径 com.zyf.Application
+关闭异步请求能加速项目启动，打开关闭注解;路径 com.zyf.Application
 
+关闭项目启动运行脚本能加速项目启动，打开关闭 [spring.rabbitmq.listener.auto-startupspring.datasource.schema，spring.datasource.continueOnError]
+关闭Rabbitmq消息队列，否则启动报错；配置项 spring.rabbitmq.listener.auto-startup
 

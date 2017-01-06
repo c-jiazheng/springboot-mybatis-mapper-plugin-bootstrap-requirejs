@@ -132,9 +132,12 @@ define(function () {
 			return {
 				load: function (loadParam) {
 					$.extend(CONSTANT.DATA_TABLES.DEFAULT_OPTION, $obj);
+					console.log(loadParam.ajax);
 					$.extend(CONSTANT.CUSTOM.DEFAULT_OPTION.ajax, loadParam.ajax);
+					console.log(CONSTANT.CUSTOM.DEFAULT_OPTION.ajax);
 					$.extend(loadParam.ajax, CONSTANT.CUSTOM.DEFAULT_OPTION.ajax);
 					$.extend(CONSTANT.CUSTOM.DEFAULT_OPTION, loadParam);
+					console.log(CONSTANT.CUSTOM.DEFAULT_OPTION);
 					var $table = $(CONSTANT.CUSTOM.DEFAULT_OPTION.el);
 					var $table_thead = $("<thead></thead>");
 					var $table_tr = $("<tr></tr>");
@@ -308,7 +311,7 @@ define(function () {
 					}
 
 					return {
-						reload: function () {
+						reload: function (param) {
 							_table.ajax.reload();
 						}
 					};

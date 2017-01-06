@@ -1,4 +1,4 @@
-package com.zyf.admin.support.aop.log;
+package com.zyf.admin.support.log.aop;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

@@ -2,6 +2,14 @@ requirejs(["dataTables", "initBindMethod"], function(){
 });
 
 define("initBindMethod", ["utils/TemplateUtils", "utils/FormUtils", "dataTables"], function (TemplateUtils, FormUtils, dataTables) {
+	$("#jq_query_option").validationEngine({
+		binded:false,
+		onValidationComplete: function(form, valid){
+			dataTables.reload();
+		},
+		addPromptClass:"formError-text formError-white formError-small"
+	});
+	
 	$("#jq_add").on("click", function () {
 		$(this).hide();
 		TemplateUtils.buildForm({
@@ -119,7 +127,11 @@ define("dataTables", ["utils/TemplateUtils", "utils/FormUtils", "utils/TableUtil
 			"isOperate": true,//是否需要操作选项
 			"ajax": {
 				"type": "GET",
-				"url": "/user/queryList"
+				"url": "/user/queryList",
+				"data": {
+					"account": $("#jq_query_option_account").val(),
+					"mobile": $("#jq_query_option_mobile").val()
+				}
 			},
 			"column": [
 				{

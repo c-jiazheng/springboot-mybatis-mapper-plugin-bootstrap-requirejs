@@ -2,30 +2,30 @@ package com.zyf.other.web.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zyf.common.entity.sys.User;
+import com.zyf.common.valid.sys.UserValidGroup;
 import com.zyf.framework.exception.MyException;
 import com.zyf.framework.utils.EHCacheUtils;
-import com.zyf.framework.utils.MessageUtils;
 import com.zyf.framework.utils.PathUtils;
 import com.zyf.framework.utils.zip.ZipUtils;
 import com.zyf.other.rabbitmq.Sender;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("test")
@@ -104,12 +104,13 @@ public class TestController {
 	@ApiResponse(code = 200, message = "错误列表")
 	@RequestMapping(value = "/valid", method = RequestMethod.GET)
 	@ResponseBody
-	public String valid(@Valid User user, BindingResult result) {
-		System.out.println(user.getAccount());
+	public String valid(@Validated(value = {UserValidGroup.Login.class}) User user, BindingResult result) {
+		/*System.out.println(user.getAccount());
 		Map<String, Object> map = MessageUtils.toMap(result);
 		if("admin".equals(user.getAccount()))
 			result.rejectValue("account", "exists", "这个account已经存在了！");
-		return MessageUtils.parse(result);
+		return MessageUtils.parse(result);*/
+		return "123";
 	}
 
 

@@ -1,11 +1,12 @@
 package com.zyf.common.entity.sys;
 
+import com.zyf.common.valid.sys.UserValidGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -17,20 +18,23 @@ import java.util.Calendar;
 public class User implements Serializable {
 	private static final long serialVersionUID = 730863452165463427L;
 	@Id
-	@Min(value = -1, message = "ID不能小于-1")
+	@Min(value = -1, message = "ID不能小于-1", groups = {UserValidGroup.Update.class, UserValidGroup.Del.class})
 	@ApiModelProperty(value = "id", required = true, dataType = "long", example = "1")
 	private long id;
-	@NotEmpty(message="账号不能为空")
+	@NotEmpty(message="账号不能为空", groups = {UserValidGroup.Login.class, UserValidGroup.Add.class, UserValidGroup.Update.class})
 	@ApiModelProperty(value = "账号", required = true, dataType = "String", example = "admin", access = "123", name = "321")
 	private String account;
-	@NotEmpty(message="密码不能为空")
-	@Length(min=6,message="密码长度不能小于6位")
+	@NotEmpty(message="密码不能为空", groups = {UserValidGroup.Login.class, UserValidGroup.Add.class, UserValidGroup.Update.class})
+	@Length(min=6,message="密码长度不能小于6位", groups = {UserValidGroup.Login.class, UserValidGroup.Add.class, UserValidGroup.Update.class})
 	@ApiModelProperty(value = "密码", required = true, dataType = "String", example = "admin")
 	private String password;
+	@NotEmpty(message="真实姓名不能为空", groups = {UserValidGroup.Add.class, UserValidGroup.Update.class})
 	@ApiModelProperty(value = "真实姓名", required = true, dataType = "String", example = "管理员")
 	private String name;
+	@NotEmpty(message="用户角色不能为空", groups = {UserValidGroup.Add.class, UserValidGroup.Update.class})
 	@ApiModelProperty(value = "用户角色", required = true, dataType = "Long", example = "管理员角色")
 	private long roleId;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@ApiModelProperty(value = "创建日期", required = false, dataType = "Date", example = "2016-08-08")
 	private Calendar createTime;
 	

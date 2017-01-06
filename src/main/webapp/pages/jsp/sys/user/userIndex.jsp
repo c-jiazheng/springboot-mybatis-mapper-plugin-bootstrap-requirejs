@@ -25,14 +25,14 @@
 			</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
-				<form class="form-inline" role="form">
+				<form id="jq_query_option" class="form-inline" role="form">
 					<div class="form-group">
-						<label for="account">账号：</label>
-						<input type="text" class="form-control" id="account" placeholder="输入查询账号"/>
+						<label for="jq_query_option_account">账号：</label>
+						<input type="text" class="form-control" id="jq_query_option_account" placeholder="输入查询账号"/>
 					</div>
 					<div class="form-group">
-						<label for="mobile">手机号：</label>
-						<input type="text" class="form-control" id="mobile" placeholder="输入查询手机号"/>
+						<label for="jq_query_option_mobile">手机号：</label>
+						<input type="text" class="form-control" id="jq_query_option_mobile" placeholder="输入查询手机号"/>
 					</div>
 					<button type="submit" class="btn btn-default form-control pull-right">查询</button>
 				</form>

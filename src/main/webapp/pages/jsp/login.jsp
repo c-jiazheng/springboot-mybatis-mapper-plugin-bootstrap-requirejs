@@ -17,13 +17,13 @@
 					<h3 class="panel-title">Please Sign In</h3>
 				</div>
 				<div class="panel-body">
-					<form role="form" onclick="return false;">
+					<form id="jq_form" role="form">
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="account" name="account" type="email" />
+								<input class="form-control validate[required]" placeholder="account" name="account" type="text" />
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="password" name="password" type="password" value=""/>
+								<input class="form-control validate[required]" placeholder="password" name="password" type="password" value=""/>
 							</div>
 							<div class="checkbox">
 								<label>

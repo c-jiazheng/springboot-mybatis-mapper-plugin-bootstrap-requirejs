@@ -51,6 +51,11 @@ public class DateJodaTimeUtils {
 		return DateTime.parse(time, DateTimeFormat.forPattern(format_default));
 	}
 
+	public static Calendar stringToCalendar(String time, String format) {
+		return DateTime.parse(time, DateTimeFormat.forPattern(format))
+				.toCalendar(Locale.getDefault());
+	}
+
 	public static Calendar stringToCalendar(String time) {
 		return stringToDateTime(time).toCalendar(Locale.getDefault());
 	}

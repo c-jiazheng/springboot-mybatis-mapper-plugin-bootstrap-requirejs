@@ -21,6 +21,13 @@ public interface UserService {
 	List<User> queryList();
 
 	/**
+	 * 根据账号Id查询当前用户
+	 * @param id 账户
+	 * @return User
+	 */
+	User queryById(long id);
+
+	/**
 	 * 根据账号Account查询当前用户
 	 * @param account 账户
 	 * @return User

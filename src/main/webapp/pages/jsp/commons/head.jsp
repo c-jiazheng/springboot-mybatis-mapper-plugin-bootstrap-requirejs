@@ -8,7 +8,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="index.html">曾玉飞脚手架</a>
+		<a class="navbar-brand" href="/index">曾玉飞脚手架</a>
 	</div>
 	<!-- /.navbar-header -->
 

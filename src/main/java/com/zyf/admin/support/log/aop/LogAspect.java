@@ -1,4 +1,4 @@
-package com.zyf.admin.support.aop.log;
+package com.zyf.admin.support.log.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,7 +20,7 @@ public class LogAspect {
 
 	private List<String> exclude;
 
-	@Around("@annotation(com.zyf.admin.support.aop.log.Log)")
+	@Around("@annotation(com.zyf.admin.support.log.aop.Log)")
 	public Object saveLog(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object proceed;
 		String methodName = joinPoint.getSignature().getName();

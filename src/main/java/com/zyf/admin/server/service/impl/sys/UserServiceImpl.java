@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User queryById(long id) {
+		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
 	public User queryByAccont(String account) {
 		Example example = new Example(User.class);
 		Example.Criteria criteria = example.createCriteria();

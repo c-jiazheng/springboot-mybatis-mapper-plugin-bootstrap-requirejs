@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/static/plugin/datatables/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="/static/plugin/datatables-responsive/dataTables.responsive.css" />
 <link rel="stylesheet" href="/static/plugin/layer/skin/layer.css" />
+<link rel="stylesheet" href="/static/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css" />
 
 
 

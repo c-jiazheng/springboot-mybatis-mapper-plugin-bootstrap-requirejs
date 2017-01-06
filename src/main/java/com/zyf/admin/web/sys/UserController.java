@@ -1,22 +1,23 @@
 package com.zyf.admin.web.sys;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zyf.common.entity.sys.User;
 import com.zyf.common.service.sys.UserService;
+import com.zyf.common.valid.sys.UserValidGroup;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,14 +65,14 @@ public class UserController {
 			@ApiResponse(code = 401, message = "账号不存在"),
 			@ApiResponse(code = 402, message = "账号被冻结")
 	})
-	@RequestMapping(value = "query", method = RequestMethod.OPTIONS)
+	@RequestMapping(value = "query", method = RequestMethod.GET)
 	@ResponseBody
-	public String query(String account) {
-		logger.info("account:[{}]", account);
+	public String query(@RequestParam(required = false, name = "id", defaultValue = "0") long id) {
+		logger.info("id:[{}]", id);
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "common fail");
 		map.put("result", false);
-		User user = userService.queryByAccont(account);
+		User user = userService.queryById(id);
 		map.put("user", user);
 		return JSONObject.toJSONString(map);
 	}
@@ -86,7 +87,7 @@ public class UserController {
 	})
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
-	public String add(User user) {
+	public String add(@Validated(value = UserValidGroup.Add.class) User user, BindingResult result) {
 		logger.info("user:[{}]", user);
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "add user fail");
@@ -110,7 +111,7 @@ public class UserController {
 	})
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
-	public String update(User user) {
+	public String update(@Validated(value = UserValidGroup.Update.class) User user, BindingResult result) {
 		logger.info("user:[{}]", user);
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "update user fail");

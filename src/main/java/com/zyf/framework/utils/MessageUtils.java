@@ -15,6 +15,11 @@ import java.util.Map;
  */
 public class MessageUtils {
 
+	public static final String CODE = "code";
+	public static final String MSG = "msg";
+	public static final String RESULT = "result";
+	public static final String ERRORSIZE = "errorSize";
+
 	private static final String success_msg = "success";
 
 	public static Map<String,Object> toMap(BindingResult result) {
@@ -23,7 +28,6 @@ public class MessageUtils {
 			int code = 400;
 			List<String> list = new ArrayList<>();
 			List<ObjectError> errorList = result.getAllErrors();
-			map.put("errorSize", errorList.size());
 			if(errorList.size() == 1){
 				map.put("msg", errorList.get(0).getDefaultMessage());
 			}else{
@@ -33,8 +37,11 @@ public class MessageUtils {
 				}
 				map.put("msg", list);
 			}
+			map.put("errorSize", errorList.size());
+			map.put("result", false);
 			map.put("code", code);
 		}else{
+			map.put("result", true);
 			map.put("code", 200);
 		}
 		return map;
@@ -54,9 +61,12 @@ public class MessageUtils {
 				list.add(error.getDefaultMessage());
 				code++;
 			}
+			map.put("errorSize", list.size());
+			map.put("result", false);
 			map.put("code", code);
 			map.put("msg", list);
 		}else{
+			map.put("result", true);
 			map.put("code", 200);
 			if(org.apache.commons.lang3.StringUtils.isNotBlank(successMsg))
 				map.put("msg", successMsg);

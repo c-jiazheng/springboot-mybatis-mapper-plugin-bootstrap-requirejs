@@ -3,63 +3,50 @@
  * Created by zengyufei on 2016/11/20/020.
  * QQ: 312636208
  */
-define(function () {
-	var Form = (function () {
-		var obj = function () {
-		};
-		obj.prototype.bind = function () {
-			var _button = $("#b_submit");
-			var obj = this;
-			_button.bind("click", function () {
-				bindCallBack(obj);
-			});
-			return this;
-		};
-		function collectParams() {
-			var account = $("input[name='account']").val();
-			var password = $("input[name='password']").val();
-			return {account: account, password: password};
-		}
 
-		function bindCallBack(obj) {
-			layer.load(1, {shade: 0.6});
-			obj.ajaxBallBack("", collectParams());
-		}
-		obj.prototype.ajaxBallBack = function (url, params) {
-			if(url == null || url == "")
-				url = "/loginIn";
-			$.post(url, params, function (data) {
-				console.log(data);
-				var json = JSON.parse(data);
-				if (json.result) {
-					if (json.redirect == null || json.redirect == "")
-						json.redirect = "/common";
-					window.location.href = json.redirect;
-				} else {
-					layer.alert(json.msg);
-					layer.closeAll('loading');
-				}
-			});
-		};
-		return obj;
-	})();
+require(["validControl"], function (validControl) {
+	var ValidUtils = validControl("#jq_form", "/loginIn");
 
-	var Test = (function () {
-		var obj = function () {
-		};
-		obj.prototype.bind = function () {
-			var _button = $("#b_oneKey");
-			_button.bind("click", function () {
-				bindCallBack(this);
-			});
-			function bindCallBack(_button) {
-				new Form().ajaxBallBack("/onceLoginIn", {});
+	function oneLogin(){
+		$.post("/onceLoginIn", function (data) {
+			var json = JSON.parse(data);
+			if (json.result) {
+				if (json.redirect == null || json.redirect == "")
+					json.redirect = "/index";
+				window.location.href = json.redirect;
+			} else {
+				layer.alert(json.msg);
+				layer.closeAll('loading');
 			}
-		};
-		return obj;
-	})();
-
-	new Form().bind();
-	new Test().bind();
-
+		});
+	}
+	$("#b_oneKey").bind("click", function () {
+		oneLogin();
+	});
 });
+
+
+define("validControl", ["utils/ValidUtils"], function (ValidUtils) {
+	return function (el, url) {
+		var action = url;
+		function onAjaxAfterCallback(status, form, json, options){
+			if (json.result) {
+				if (json.redirect == null || json.redirect == "")
+					json.redirect = "/common";
+				window.location.href = json.redirect;
+			} else {
+				layer.alert(json.msg);
+				layer.closeAll('loading');
+			}
+
+		}
+		function onSubmitBeforeCallback(form, options){
+			layer.load(1, {shade: 0.6});
+		}
+		var jqFormDom = ValidUtils.init.call($(el), action, onSubmitBeforeCallback, onAjaxAfterCallback);
+		return ValidUtils;
+	}
+});
+
+
+
